@@ -3,6 +3,8 @@
 import { auth, db } from "@/firebase/admin";
 import { cookies } from "next/headers";
 
+
+
 // Session duration (1 week)
 const SESSION_DURATION = 60 * 60 * 24 * 7;
 
@@ -96,12 +98,18 @@ export async function signOut() {
   cookieStore.delete("session");
 }
 
+
+
 // Get current user from session cookie
 export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
-
+console.log("hi")
   const sessionCookie = cookieStore.get("session")?.value;
   if (!sessionCookie) return null;
+
+  console.log(sessionCookie)
+  console.log("hi")
+
 
   try {
     const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
@@ -111,8 +119,12 @@ export async function getCurrentUser(): Promise<User | null> {
       .collection("users")
       .doc(decodedClaims.uid)
       .get();
-    if (!userRecord.exists) return null;
+      console.log(userRecord)
+      console.log(userRecord.data())
+      console.log(userRecord.exists)
 
+    if (!userRecord.exists) return null;
+console.log("hi")
     return {
       ...userRecord.data(),
       id: userRecord.id,
@@ -130,3 +142,4 @@ export async function isAuthenticated() {
   const user = await getCurrentUser();
   return !!user;
 }
+
