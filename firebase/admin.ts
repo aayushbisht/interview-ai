@@ -6,8 +6,6 @@ import { getFirestore } from "firebase-admin/firestore";
 function initFirebaseAdmin() {
   const apps = getApps();
  
-  console.log("FIREBASE_PROJECT_ID:", process.env.FIREBASE_PROJECT_ID);
-console.log('hello')
 
   if (!apps.length) {
     initializeApp({

@@ -103,12 +103,9 @@ export async function signOut() {
 // Get current user from session cookie
 export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
-console.log("hi")
   const sessionCookie = cookieStore.get("session")?.value;
   if (!sessionCookie) return null;
 
-  console.log(sessionCookie)
-  console.log("hi")
 
 
   try {
@@ -119,12 +116,8 @@ console.log("hi")
       .collection("users")
       .doc(decodedClaims.uid)
       .get();
-      console.log(userRecord)
-      console.log(userRecord.data())
-      console.log(userRecord.exists)
 
     if (!userRecord.exists) return null;
-console.log("hi")
     return {
       ...userRecord.data(),
       id: userRecord.id,
