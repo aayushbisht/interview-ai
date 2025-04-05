@@ -3,8 +3,6 @@
 import { auth, db } from "@/firebase/admin";
 import { cookies } from "next/headers";
 
-
-
 // Session duration (1 week)
 const SESSION_DURATION = 60 * 60 * 24 * 7;
 
@@ -98,15 +96,12 @@ export async function signOut() {
   cookieStore.delete("session");
 }
 
-
-
 // Get current user from session cookie
 export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
+
   const sessionCookie = cookieStore.get("session")?.value;
   if (!sessionCookie) return null;
-
-
 
   try {
     const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
@@ -116,8 +111,8 @@ export async function getCurrentUser(): Promise<User | null> {
       .collection("users")
       .doc(decodedClaims.uid)
       .get();
-
     if (!userRecord.exists) return null;
+
     return {
       ...userRecord.data(),
       id: userRecord.id,
@@ -136,23 +131,36 @@ export async function isAuthenticated() {
   return !!user;
 }
 
-export async function getInterviewByUderId(userId:string):Promise<Interview[]|null>{
-  const interviews = await db.collection('interviews').where('userId','==',userId).orderBy('createdAt','desc').get();
+export async function getLatestInterviews(
+  params: GetLatestInterviewsParams
+): Promise<Interview[] | null> {
+  const { userId, limit = 20 } = params;
 
-  return interviews.docs.map((doc)=>({
-    id:doc.id,
-    ...doc.data()
+  const interviews = await db
+    .collection("interviews")
+    .orderBy("createdAt", "desc")
+    .where("finalized", "==", true)
+    .where("userId", "!=", userId)
+    .limit(limit)
+    .get();
+
+  return interviews.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
   })) as Interview[];
 }
 
-export async function getLatestInterviews(params:GetLatestInterviewsParams):Promise<Interview[]|null>{
+export async function getInterviewsByUserId(
+  userId: string
+): Promise<Interview[] | null> {
+  const interviews = await db
+    .collection("interviews")
+    .where("userId", "==", userId)
+    .orderBy("createdAt", "desc")
+    .get();
 
-  const {userId,limit = 20} = params;
-
-  const interviews = await db.collection('interviews').where('finialized','==',true).where('userId','!=',userId).limit(limit).orderBy('createdAt','desc').get();
-
-  return interviews.docs.map((doc)=>({
-    id:doc.id,
-    ...doc.data()
+  return interviews.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
   })) as Interview[];
 }
