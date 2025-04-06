@@ -24,6 +24,8 @@ const Layout = async ({ children }: { children: ReactNode }) => {
           <Link href="#forYou">Your Interviews</Link>
   <Link href="#latest">Latest Interviews</Link>
 
+
+
         </div>
 
         <div>

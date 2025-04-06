@@ -9,6 +9,7 @@ import {
   getInterviewsByUserId,
   getLatestInterviews,
 } from "@/lib/actions/general.action";
+import ScrollToHash from "@/components/ScrollToHash";
 
 async function Home() {
   const user = await getCurrentUser();
@@ -34,6 +35,7 @@ async function Home() {
             <Link href="/interview">Create an Interview</Link>
           </Button>
         </div>
+        <ScrollToHash></ScrollToHash>
 
         <Image
           src="/robot.png"
