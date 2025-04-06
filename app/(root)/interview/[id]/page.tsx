@@ -1,17 +1,13 @@
-import { getInterviewById } from '@/lib/actions/general.actions';
-import { redirect } from 'next/navigation';
-import React from 'react'
-
-
-
-
 import Image from "next/image";
+import { redirect } from "next/navigation";
+
 import Agent from "@/components/Agent";
 import { getRandomInterviewCover } from "@/lib/utils";
 
 import {
   getFeedbackByInterviewId,
-} from "@/lib/actions/general.actions";
+  getInterviewById,
+} from "@/lib/actions/general.action";
 import { getCurrentUser } from "@/lib/actions/auth.action";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
 
