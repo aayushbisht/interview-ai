@@ -44,7 +44,7 @@ async function Home() {
         />
       </section>
 
-      <section className="flex flex-col gap-6 mt-8">
+      <section id='forYou' className="flex flex-col gap-6 mt-8">
         <h2>Your Interviews</h2>
 
         <div className="interviews-section">
@@ -66,7 +66,7 @@ async function Home() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-6 mt-8">
+      <section id='latest' className="flex flex-col gap-6 mt-8">
         <h2>Take Interviews</h2>
 
         <div className="interviews-section">
