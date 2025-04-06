@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+// import LottieComponent from "@components/LottieComponent"
+import animationData from "@/public/animations/animation.json";
+import Lottie from "lottie-react";
 
 import {
   Select,
@@ -224,13 +227,18 @@ const GenerationForm = ({ userId, userName }: GenerationFormProps) => {
         </div>
       </div>
       <div className="w-1/2 h-full">
-        <Image
+        {/* <Image
           src="/robot.png"
           alt="profile-image"
           width={65}
           height={54}
           className="object-cover"
-        />
+        /> */}
+            <div className="mt-20">
+        <Lottie animationData={animationData} loop={true} />
+        </div>
+
+
       </div>
     </div>
   );
