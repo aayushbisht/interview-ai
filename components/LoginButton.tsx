@@ -8,7 +8,7 @@ const LoginButton = () => {
   return (
     <button
       onClick={() => router.push("/sign-up")}
-      className="btn-primary text-sm px-4 py-1.5 rounded-md"
+      className=" border-2 text-sm px-4 py-1.5 rounded-sm"
     >
       Get Started
     </button>
