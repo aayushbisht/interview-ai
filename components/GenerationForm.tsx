@@ -75,7 +75,7 @@ const GenerationForm = ({ userId, userName }: GenerationFormProps) => {
       console.log(res);
 
       if (res.ok) {
-        router.push("/");
+        router.push("/home");
         toast.success("Interview Generated Successfully")
       } else {
         toast.error("Failed to generate interview")

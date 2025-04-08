@@ -11,7 +11,7 @@ const TryNow =  async () => {
     const router = useRouter();
     const user = await getCurrentUser();
       const handleClick = () => {
-          router.push(!!user ? "/" : "/sign-up");
+          router.push(!!user ? "/home" : "/sign-up");
         };
   return (
     <div>          <Button className="w-full md:w-1/3"  onClick={handleClick}>Try Now!</Button>

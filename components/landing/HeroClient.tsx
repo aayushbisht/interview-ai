@@ -14,7 +14,7 @@ export const HeroClient = ({ user }: HeroClientProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(user ? "/" : "/sign-up");
+    router.push(user ? "/home" : "/sign-up");
   };
 
   return (

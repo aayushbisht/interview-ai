@@ -101,13 +101,13 @@ const Agent = ({
         router.push(`/interview/${interviewId}/feedback`);
       } else {
         console.log("Error saving feedback");
-        router.push("/");
+        router.push("/home");
       }
     };
 
     if (callStatus === CallStatus.FINISHED) {
       if (type === "generate") {
-        router.push("/");
+        router.push("/home");
       } else {
         handleGenerateFeedback(messages);
       }

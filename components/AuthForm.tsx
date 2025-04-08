@@ -91,7 +91,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         });
 
         toast.success("Signed in successfully.");
-        router.push("/");
+        router.push("/home");
       }
     } catch (error) {
       console.log(error);
@@ -115,7 +115,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   {/* Auth card */}
   <div className={`card-border lg:min-w-[566px] ${loading ? "pointer-events-none select-none" : ""}`}>
     <div className="flex flex-col gap-6 card py-14 px-10">
-      <Link href="/landing">
+      <Link href="/">
         <div className="flex flex-row gap-2 justify-center">
           <Image src="/logo2.jpeg" alt="logo" height={32} width={38} />
           <h2 className="text-primary-100">SmartPrep</h2>
