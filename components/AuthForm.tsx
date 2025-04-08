@@ -8,6 +8,7 @@ import { auth } from "@/firebase/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
 import {
   createUserWithEmailAndPassword,
@@ -30,6 +31,8 @@ const authFormSchema = (type: FormType) => {
 
 const AuthForm = ({ type }: { type: FormType }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -42,6 +45,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setLoading(true);
     try {
       if (type === "sign-up") {
         const { name, email, password } = data;
@@ -93,68 +97,78 @@ const AuthForm = ({ type }: { type: FormType }) => {
       console.log(error);
       toast.error(`There was an error: ${error}`);
     }
+    finally{
+      setLoading(false);
+    }
   };
 
   const isSignIn = type === "sign-in";
 
   return (
-    <div className="card-border lg:min-w-[566px]">
-      <div className="flex flex-col gap-6 card py-14 px-10">
+    <div className="relative">
+  {loading && (
+    <div className="absolute rounded-2xl inset-0 z-10 flex items-center justify-center backdrop-blur-sm bg-[#212328]">
+      <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-600 border-solid"></div>
+    </div>
+  )}
+
+  {/* Auth card */}
+  <div className={`card-border lg:min-w-[566px] ${loading ? "pointer-events-none select-none" : ""}`}>
+    <div className="flex flex-col gap-6 card py-14 px-10">
+      <Link href="/landing">
         <div className="flex flex-row gap-2 justify-center">
-          <Image src="/logo.svg" alt="logo" height={32} width={38} />
+          <Image src="/logo2.jpeg" alt="logo" height={32} width={38} />
           <h2 className="text-primary-100">SmartPrep</h2>
         </div>
-
+      </Link>
+      <div className="flex flex-row gap-2 justify-center">
         <h3>Practice job interviews with AI</h3>
-
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-6 mt-4 form"
-          >
-            {!isSignIn && (
-              <FormField
-                control={form.control}
-                name="name"
-                label="Name"
-                placeholder="Your Name"
-                type="text"
-              />
-            )}
-
-            <FormField
-              control={form.control}
-              name="email"
-              label="Email"
-              placeholder="Your email address"
-              type="email"
-            />
-
-            <FormField
-              control={form.control}
-              name="password"
-              label="Password"
-              placeholder="Enter your password"
-              type="password"
-            />
-
-            <Button className="btn" type="submit">
-              {isSignIn ? "Sign In" : "Create an Account"}
-            </Button>
-          </form>
-        </Form>
-
-        <p className="text-center">
-          {isSignIn ? "No account yet?" : "Have an account already?"}
-          <Link
-            href={!isSignIn ? "/sign-in" : "/sign-up"}
-            className="font-bold text-user-primary ml-1"
-          >
-            {!isSignIn ? "Sign In" : "Sign Up"}
-          </Link>
-        </p>
       </div>
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 mt-4 form">
+          {!isSignIn && (
+            <FormField
+              control={form.control}
+              name="name"
+              label="Name"
+              placeholder="Your Name"
+              type="text"
+            />
+          )}
+          <FormField
+            control={form.control}
+            name="email"
+            label="Email"
+            placeholder="Your email address"
+            type="email"
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            label="Password"
+            placeholder="Enter your password"
+            type="password"
+          />
+          <Button className="btn" type="submit">
+            {isSignIn ? "Sign In" : "Create an Account"}
+          </Button>
+        </form>
+      </Form>
+
+      <p className="text-center">
+        {isSignIn ? "No account yet?" : "Have an account already?"}
+        <Link
+          href={!isSignIn ? "/sign-in" : "/sign-up"}
+          className="font-bold text-user-primary ml-1"
+        >
+          {!isSignIn ? "Sign In" : "Sign Up"}
+        </Link>
+      </p>
     </div>
+  </div>
+</div>
+
   );
 };
 

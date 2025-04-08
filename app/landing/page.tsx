@@ -6,8 +6,12 @@ import { HowItWorks } from '@/components/landing/HowItWorks'
 const page = () => {
   return (
     <div><Hero></Hero>
+    <section id='about'>
     <About></About>
+    </section>
+    <section id='working'>
     <HowItWorks></HowItWorks>
+    </section>
     </div>
 
   )

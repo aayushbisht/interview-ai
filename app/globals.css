@@ -302,12 +302,19 @@
   @apply bg-gradient-to-b from-[#4B4D4F] to-[#4B4D4F33];
 }
 
-@utility pattern {
+/* @utility pattern {
   @apply bg-[url('/pattern.png')] bg-top bg-no-repeat;
+} */
+
+@layer utilities {
+  .pattern {
+    @apply bg-[#181818] bg-top bg-no-repeat;
+  }
 }
 
+
 @utility blue-gradient-dark {
-  @apply bg-gradient-to-b from-[#171532] to-[#08090D];
+  background: linear-gradient(180deg, hsla(0, 5%, 25%, 1) 14%, hsla(0, 0%, 0%, 1) 100%);
 }
 
 @utility blue-gradient {
@@ -360,3 +367,22 @@
     10% 20%
   );
 }
+
+.clip-blob1 {
+  clip-path: polygon(
+    50% 0%, 70% 5%, 90% 20%, 100% 50%,
+    95% 80%, 75% 95%, 50% 100%, 25% 95%,
+    5% 80%, 0% 50%, 10% 20%, 30% 5%
+  );
+}
+
+.clip-blob2 {
+  clip-path: polygon(
+    50% 0%, 70% 5%, 90% 20%, 100% 50%,
+    95% 80%, 75% 95%, 50% 100%, 25% 95%,
+    5% 80%, 0% 50%, 10% 20%, 30% 5%
+  );
+}
+
+
+

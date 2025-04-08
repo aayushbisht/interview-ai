@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "./Icons";
+import { MedalIcon, MapIcon, PlaneIcon, GiftIcon,LightBulbIcon, LogoIcon } from "./Icons";
+
 
 interface FeatureProps {
   icon: JSX.Element;
@@ -9,13 +10,13 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    icon: <MedalIcon />,
+    icon: <MapIcon />,
     title: "Sign Up",
     description:
       "Create an account within seconds",
   },
   {
-    icon: <MapIcon />,
+    icon: <LightBulbIcon />,
     title: "Generate Interview",
     description:
       "Enter basic details about type of interview you want to generate",
@@ -27,7 +28,7 @@ const features: FeatureProps[] = [
       "Within seconds interview is generated and ready to be taken",
   },
   {
-    icon: <GiftIcon />,
+    icon: <MedalIcon />,
     title: "Feedback",
     description:
       "We give personalized feedback with ratings for various criterea",
@@ -48,8 +49,7 @@ export const HowItWorks = () => {
         Step-by-Step Guide
       </h2>
       <p className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-        dolor pariatur sit!
+        Generate an interview within seconds!
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

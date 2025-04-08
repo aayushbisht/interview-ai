@@ -25,7 +25,7 @@ async function Home() {
   return (
     <>
       <section className="card-cta">
-        <div className="flex flex-col gap-6 max-w-lg">
+        <div className="flex flex-col gap-6 max-w-lg ">
           <h2>Get Interview-Ready with AI-Powered Practice & Feedback</h2>
           <p className="text-lg">
             Practice real interview questions & get instant feedback
@@ -36,14 +36,15 @@ async function Home() {
           </Button>
         </div>
         <ScrollToHash></ScrollToHash>
-
+<div className="clip-blob2">
         <Image
-          src="/robot.png"
+          src="/robo1.jpeg"
           alt="robo-dude"
           width={400}
           height={400}
           className="max-sm:hidden"
         />
+        </div>
       </section>
 
       <section id='forYou' className="flex flex-col gap-6 mt-8">

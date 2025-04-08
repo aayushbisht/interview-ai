@@ -29,6 +29,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 type GenerationFormProps = {
   userName: string;
@@ -75,8 +76,10 @@ const GenerationForm = ({ userId, userName }: GenerationFormProps) => {
 
       if (res.ok) {
         router.push("/");
+        toast.success("Interview Generated Successfully")
       } else {
-        alert("Failed to generate interview.");
+        toast.error("Failed to generate interview")
+
       }
     } catch (err) {
       alert("Something went wrongg.");
@@ -88,7 +91,7 @@ const GenerationForm = ({ userId, userName }: GenerationFormProps) => {
 
   return (
     <div className="h-screen flex">
-      <div className="w-1/2 flex items-center justify-center p-8">
+      <div className="w-1/2 flex items-center justify-center p-8 border-gray-500 border-1 border-solid rounded-2xl">
         <div className="relative w-full max-w-lg">
           {loading && (
             <div className="absolute inset-0 z-10 flex items-center justify-center backdrop-blur-sm">

@@ -16,7 +16,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
     <div className="root-layout">
       <nav className="flex justify-between items-center px-4 py-2 border-b">
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/landing" className="flex items-center gap-2">
             <Image src="/logo2.jpeg" alt="MockMate Logo" width={34} height={28} />
             <h3 className="text-primary-100">SmartPrep</h3>
           </Link>
@@ -38,7 +38,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
                 Logout
               </button>
 
-              <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+              <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
                 {user?.name ? (
                   <span className="text-white font-bold">
                     {user.name.charAt(0).toUpperCase()}

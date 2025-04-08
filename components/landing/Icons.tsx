@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export const LogoIcon = () => {
     return (
       <svg
@@ -30,7 +32,6 @@ export const LogoIcon = () => {
         viewBox="0 0 128 128"
         className="w-14 fill-primary"
       >
-        <title>Free Icons</title>
         <g
           id="Layer_8"
           data-name="Layer 8"
@@ -111,7 +112,6 @@ export const LogoIcon = () => {
         viewBox="0 0 128 128"
         className="w-14 fill-primary"
       >
-        <title>Free Icons</title>
         <g
           id="Layer_45"
           data-name="Layer 45"
@@ -188,7 +188,6 @@ export const LogoIcon = () => {
         viewBox="0 0 128 128"
         className="w-14 fill-primary"
       >
-        <title>Free Icons</title>
         <g
           id="Layer_4"
           data-name="Layer 4"
@@ -249,7 +248,6 @@ export const LogoIcon = () => {
         viewBox="0 0 128 128"
         className="w-14 fill-primary"
       >
-        <title>Free Icons</title>
         <g
           id="Layer_14"
           data-name="Layer 14"
@@ -350,7 +348,6 @@ export const LogoIcon = () => {
         viewBox="0 0 128 128"
         className="w-12 fill-primary"
       >
-        <title>Free Icons</title>
         <g
           id="Layer_49"
           data-name="Layer 49"
@@ -427,7 +424,6 @@ export const LogoIcon = () => {
         viewBox="0 0 128 128"
         className="w-12 fill-primary"
       >
-        <title>Free Icons</title>
         <g
           id="Layer_21"
           data-name="Layer 21"
@@ -520,7 +516,6 @@ export const LogoIcon = () => {
         viewBox="0 0 128 128"
         className="w-12 fill-primary"
       >
-        <title>Free Icons</title>
         <g
           id="Layer_10"
           data-name="Layer 10"
@@ -593,7 +588,6 @@ export const LogoIcon = () => {
         viewBox="0 0 128 128"
         className="w-12 fill-primary"
       >
-        <title>Free Icons</title>
         <g
           id="Layer_46"
           data-name="Layer 46"
