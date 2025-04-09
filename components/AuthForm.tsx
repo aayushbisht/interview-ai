@@ -18,8 +18,9 @@ import {
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
-import { signIn, signUp } from "@/lib/actions/auth.action";
+import { setSessionCookie, signIn, signUp } from "@/lib/actions/auth.action";
 import FormField from "./FormField";
+import { UserAuth } from "@/context/AuthContext";
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -30,6 +31,9 @@ const authFormSchema = (type: FormType) => {
 };
 
 const AuthForm = ({ type }: { type: FormType }) => {
+  
+  const {logOut, googleSignIn } = UserAuth();
+
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -43,6 +47,34 @@ const AuthForm = ({ type }: { type: FormType }) => {
       password: "",
     },
   });
+
+
+  const handleSignIn = async () => {
+    setLoading(true);
+    try {
+      await googleSignIn();
+  
+      const currentUser =  auth.currentUser;
+      if (!currentUser) {
+        toast.error("Something went wrong. Please try again.");
+        return;
+      }
+      console.log(currentUser.uid);
+  
+
+   
+  
+      toast.success("Signed in successfully.");
+      router.push("/home");
+    } catch (error) {
+      console.error("Google login error:", error);
+      toast.error("There was an error logging in with Google.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+ 
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setLoading(true);
@@ -78,6 +110,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           email,
           password
         );
+        console.log(userCredential)
 
         const idToken = await userCredential.user.getIdToken();
         if (!idToken) {
@@ -155,6 +188,12 @@ const AuthForm = ({ type }: { type: FormType }) => {
           </Button>
         </form>
       </Form>
+    
+
+      <button onClick={handleSignIn} className="px-4 py-2 bg-blue-600 text-white rounded">
+  Continue with Google
+</button>
+
 
       <p className="text-center">
         {isSignIn ? "No account yet?" : "Have an account already?"}

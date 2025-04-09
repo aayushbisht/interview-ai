@@ -8,7 +8,9 @@ const SESSION_DURATION = 60 * 60 * 24 * 7;
 
 // Set session cookie
 export async function setSessionCookie(idToken: string) {
+  console.log(idToken)
   const cookieStore = await cookies();
+  console.log("hi");
 
   // Create session cookie
   const sessionCookie = await auth.createSessionCookie(idToken, {
@@ -101,16 +103,20 @@ export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
 
   const sessionCookie = cookieStore.get("session")?.value;
+  console.log(sessionCookie);
   if (!sessionCookie) return null;
 
   try {
     const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
+    console.log(decodedClaims);
 
     // get user info from db
     const userRecord = await db
       .collection("users")
       .doc(decodedClaims.uid)
       .get();
+      console.log(userRecord.exists)
+
     if (!userRecord.exists) return null;
 
     return {
@@ -128,5 +134,7 @@ export async function getCurrentUser(): Promise<User | null> {
 // Check if user is authenticated
 export async function isAuthenticated() {
   const user = await getCurrentUser();
+  console.log(user);
   return !!user;
 }
+
