@@ -72,7 +72,7 @@ const GenerationForm = ({ userId, userName }: GenerationFormProps) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, userid: userId }),
       });
-      console.log(res);
+      //console.log(res);
 
       if (res.ok) {
         router.push("/home");
@@ -83,7 +83,7 @@ const GenerationForm = ({ userId, userName }: GenerationFormProps) => {
       }
     } catch (err) {
       alert("Something went wrongg.");
-      console.log(err);
+      //console.log(err);
     } finally {
       setLoading(false);
     }

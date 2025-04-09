@@ -52,17 +52,17 @@ const Agent = ({
     };
 
     const onSpeechStart = () => {
-      console.log("speech start");
+      //console.log("speech start");
       setIsSpeaking(true);
     };
 
     const onSpeechEnd = () => {
-      console.log("speech end");
+      //console.log("speech end");
       setIsSpeaking(false);
     };
 
     const onError = (error: Error) => {
-      console.log("Error:", error);
+      //console.log("Error:", error);
     };
 
     vapi.on("call-start", onCallStart);
@@ -88,7 +88,7 @@ const Agent = ({
     }
 
     const handleGenerateFeedback = async (messages: SavedMessage[]) => {
-      console.log("handleGenerateFeedback");
+      //console.log("handleGenerateFeedback");
 
       const { success, feedbackId: id } = await createFeedback({
         interviewId: interviewId!,
@@ -100,7 +100,7 @@ const Agent = ({
       if (success && id) {
         router.push(`/interview/${interviewId}/feedback`);
       } else {
-        console.log("Error saving feedback");
+        //console.log("Error saving feedback");
         router.push("/home");
       }
     };

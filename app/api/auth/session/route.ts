@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export async function POST(req: NextRequest) {
   try {
     const { idToken } = await req.json();
-    console.log(idToken);
+    //console.log(idToken);
 
     if (!idToken) {
       return NextResponse.json({ message: "Missing ID token" }, { status: 400 });

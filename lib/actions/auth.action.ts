@@ -1,6 +1,7 @@
 "use server";
 
 import { auth, db } from "@/firebase/admin";
+import { Verified } from "lucide-react";
 import { cookies } from "next/headers";
 
 // Session duration (1 week)
@@ -8,9 +9,9 @@ const SESSION_DURATION = 60 * 60 * 24 * 7;
 
 // Set session cookie
 export async function setSessionCookie(idToken: string) {
-  console.log(idToken)
+  //console.log(idToken)
   const cookieStore = await cookies();
-  console.log("hi");
+  //console.log("hi");
 
   // Create session cookie
   const sessionCookie = await auth.createSessionCookie(idToken, {
@@ -28,7 +29,7 @@ export async function setSessionCookie(idToken: string) {
 }
 
 export async function signUp(params: SignUpParams) {
-  const { uid, name, email } = params;
+  const { uid, name, email, verified } = params;
 
   try {
     // check if user exists in db
@@ -43,13 +44,14 @@ export async function signUp(params: SignUpParams) {
     await db.collection("users").doc(uid).set({
       name,
       email,
+      verified
       // profileURL,
       // resumeURL,
     });
 
     return {
       success: true,
-      message: "Account created successfully. Please sign in.",
+      message: "Verification link sent, please verify",
     };
   } catch (error: any) {
     console.error("Error creating user:", error);
@@ -74,15 +76,17 @@ export async function signIn(params: SignInParams) {
 
   try {
     const userRecord = await auth.getUserByEmail(email);
-    if (!userRecord)
+    if (!userRecord){
       return {
         success: false,
         message: "User does not exist. Create an account.",
       };
+    }
+
 
     await setSessionCookie(idToken);
   } catch (error: any) {
-    console.log("");
+    //console.log(error);
 
     return {
       success: false,
@@ -103,19 +107,18 @@ export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
 
   const sessionCookie = cookieStore.get("session")?.value;
-  console.log(sessionCookie);
+  //console.log(sessionCookie);
   if (!sessionCookie) return null;
 
   try {
     const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
-    console.log(decodedClaims);
+    //console.log(decodedClaims);
 
     // get user info from db
     const userRecord = await db
       .collection("users")
       .doc(decodedClaims.uid)
       .get();
-      console.log(userRecord.exists)
 
     if (!userRecord.exists) return null;
 
@@ -124,7 +127,7 @@ export async function getCurrentUser(): Promise<User | null> {
       id: userRecord.id,
     } as User;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     // Invalid or expired session
     return null;
@@ -134,7 +137,7 @@ export async function getCurrentUser(): Promise<User | null> {
 // Check if user is authenticated
 export async function isAuthenticated() {
   const user = await getCurrentUser();
-  console.log(user);
+  //console.log(user);
   return !!user;
 }
 

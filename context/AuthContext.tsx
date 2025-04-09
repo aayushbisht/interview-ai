@@ -12,6 +12,7 @@ import { setSessionCookie } from "@/lib/actions/auth.action";
 
 type AuthContextType = {
   user: any ;
+  isEmailVerified:boolean;
   googleSignIn: () => void;
   logOut: () => void;
 }
@@ -19,6 +20,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<any>(null);
+  const [isEmailVerified, setIsEmailVerified] = useState<boolean>();
 
 
   const logOut = () => {
@@ -30,7 +32,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken();
-      console.log(idToken);
+      //console.log(idToken);
       
       await fetch("/api/auth/session", {
         method: "POST",
@@ -49,7 +51,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       });
       
   } catch(error){
-    console.log(error,'Google sign in error');
+    //console.log(error,'Google sign in error');
   }
 }
 
