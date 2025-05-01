@@ -9,21 +9,17 @@ const SESSION_DURATION = 60 * 60 * 24 * 7;
 
 // Set session cookie
 export async function setSessionCookie(idToken: string) {
-  //console.log(idToken)
   const cookieStore = await cookies();
-  //console.log("hi");
 
-  // Create session cookie
   const sessionCookie = await auth.createSessionCookie(idToken, {
     expiresIn: SESSION_DURATION * 1000, // milliseconds
   });
 
-  // Set cookie in the browser
   cookieStore.set("session", sessionCookie, {
     maxAge: SESSION_DURATION,
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    path: "/home",
+    path: "/",
     sameSite: "lax",
   });
 }
@@ -32,7 +28,6 @@ export async function signUp(params: SignUpParams) {
   const { uid, name, email, verified } = params;
 
   try {
-    // check if user exists in db
     const userRecord = await db.collection("users").doc(uid).get();
     if (userRecord.exists)
       return {
@@ -40,13 +35,10 @@ export async function signUp(params: SignUpParams) {
         message: "User already exists. Please sign in.",
       };
 
-    // save user to db
     await db.collection("users").doc(uid).set({
       name,
       email,
       verified
-      // profileURL,
-      // resumeURL,
     });
 
     return {
@@ -107,7 +99,7 @@ export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
 
   const sessionCookie = cookieStore.get("session")?.value;
-  //console.log(sessionCookie);
+  console.log(sessionCookie);
   if (!sessionCookie) return null;
 
   try {
@@ -119,7 +111,7 @@ export async function getCurrentUser(): Promise<User | null> {
       .collection("users")
       .doc(decodedClaims.uid)
       .get();
-
+ console.log(userRecord)
     if (!userRecord.exists) return null;
 
     return {
@@ -137,7 +129,6 @@ export async function getCurrentUser(): Promise<User | null> {
 // Check if user is authenticated
 export async function isAuthenticated() {
   const user = await getCurrentUser();
-  //console.log(user);
   return !!user;
 }
 

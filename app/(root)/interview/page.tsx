@@ -5,6 +5,7 @@ import GenerationForm from "@/components/GenerationForm";
 
 const Page = async () => {
   const user = await getCurrentUser();
+  console.log(user)
 
   return (
     <>
